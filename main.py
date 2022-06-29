@@ -12,14 +12,35 @@ def introduction():
 
     print('''Rules:
     1) Each mini-board has to contain the symbols 1-9.
-    2) Each symbol can only appear once in a row, column, or mini-board.
-    3) For every "0" symbol, replace that cell with what you think the correct symbol is.
-    4) After filling everything in, check your answer with the full board.''')
+    2) Each symbol can only appear once in a row, column, or mini-board.''')
 
 #Formula to validate sudoku pattern
 def validate(x, y):
     offsets = (3 * (x % 3) + x // 3 + y) % 9 # Calculates the offsets so the numbers fit on a valid 9x9 Sudoku puzzle
     return offsets
+
+#Prints board to the screen
+def printBoard(board):
+    for row in range(len(board)):
+        rowFlag = True #Prints horizontal lines once
+        for col in range(len(board)):
+            #Horizontal lines
+            if (row % 3 == 0) and (row > 0) and (rowFlag):
+                rowFlag = False
+                for i in range(len(board)):
+                    print("-", end = " ")
+                print("- -") #Accounts for extra length added from vertical lines
+            #Vertical lines
+            if (col % 3 == 0) and (col > 0):
+                print("|", end = " ")
+            
+            #Cell is hidden
+            if board[row][col] == 0:
+                print(" ", end = " ") # Prints an empty cell
+            #Cell is revealed
+            else:
+                print(board[row][col], end = " ") # Prints each cell
+        print() # Spacer
 
 #======Main======
 def main():
@@ -82,16 +103,14 @@ def main():
                 rank[cell] = 0 # "0" is a placeholder for nothing
 
     #Obstructed Board
-    for rank in hidden_board:
-        print(*rank) # Prints each line
+    printBoard(hidden_board)
 
     print("\nPress enter to see the full board.")
 
     input()
 
     #Full Board
-    for rank in board:
-        print(*rank) # Prints each line
+    printBoard(board)
 
 #======Execution Check======
 if __name__ == '__main__':
