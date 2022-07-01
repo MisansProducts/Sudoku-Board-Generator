@@ -21,26 +21,25 @@ def validate(x, y):
 
 #Prints board to the screen
 def printBoard(board):
-    for row in range(len(board)):
-        rowFlag = True #Prints horizontal lines once
-        for col in range(len(board)):
-            #Horizontal lines
-            if (row % 3 == 0) and (row > 0) and (rowFlag):
-                rowFlag = False
-                for i in range(len(board)):
-                    print("-", end = " ")
-                print("- -") #Accounts for extra length added from vertical lines
-            #Vertical lines
-            if (col % 3 == 0) and (col > 0):
-                print("|", end = " ")
-            
-            #Cell is hidden
-            if board[row][col] == 0:
-                print(" ", end = " ") # Prints an empty cell
-            #Cell is revealed
+    # loop for whole board
+    for rownum in range(len(board)):
+        # loop for one row
+        for num in range(len(board[rownum])):
+            # if num == 0: print nothing else print num
+            if board[rownum][num] != 0:
+                print(board[rownum][num], end=" ")
             else:
-                print(board[row][col], end = " ") # Prints each cell
-        print() # Spacer
+                print(" ", end=" ")
+            # printig vertical lines
+            if num % 3 == 2 and num != 8:
+               print("|", end = " ")
+        print("")   # aka new line
+        # printing horizontal lines
+        if rownum % 3 == 2 and rownum != 8:
+            for _ in range(11):         # here i was too lazy to think about elegant solution, so i made it hardcoded. sry
+                print("- ", end="") # maybe you can consider putting = instead of -
+            print("")
+            
 
 #======Main======
 def main():
@@ -54,7 +53,8 @@ def main():
     while True:
         #Difficulty Input
         try:
-            difficulty = float(input("Enter a difficulty (1-99): "))
+            # difficulty = float(input("Enter a difficulty (1-99): "))
+            difficulty = float(60)
 
             #Bad inputs
             if difficulty < 0:
@@ -104,7 +104,7 @@ def main():
 
     #Obstructed Board
     printBoard(hidden_board)
-
+    exit()
     print("\nPress enter to see the full board.")
 
     input()
