@@ -21,26 +21,25 @@ def validate(x, y):
 
 #Prints board to the screen
 def printBoard(board):
-    for row in range(len(board)):
-        rowFlag = True #Prints horizontal lines once
-        for col in range(len(board)):
-            #Horizontal lines
-            if (row % 3 == 0) and (row > 0) and (rowFlag):
-                rowFlag = False
-                for i in range(len(board)):
-                    print("-", end = " ")
-                print("- -") #Accounts for extra length added from vertical lines
-            #Vertical lines
-            if (col % 3 == 0) and (col > 0):
-                print("|", end = " ")
-            
-            #Cell is hidden
-            if board[row][col] == 0:
-                print(" ", end = " ") # Prints an empty cell
-            #Cell is revealed
-            else:
-                print(board[row][col], end = " ") # Prints each cell
-        print() # Spacer
+    #Variables
+    horizontal_line = "- - - - - - - - - - - - "
+
+    # Preprocess the rows to add the vertical column separations
+    for row in board:
+        for c in range(len(row)):
+            if row[c] == 0: # if a cell has not been revealed, replace the present 0 with a space
+                row[c] = " "
+        row.insert(3, "|") # add the left vertical column
+        row.insert(7, "|") # add the right vertical column
+
+    # Add the horizontal lines
+    board.insert(3, [horizontal_line]) # add the upper horizontal line
+    board.insert(7, [horizontal_line]) # add the lower horizontal line
+    
+    # Print the board
+    for r in board:
+        print(*r, end = " ") # print the row list, with it's elements separated by spaces
+        print() # spacer
 
 #======Main======
 def main():
@@ -81,7 +80,6 @@ def main():
     for row in random.sample(range(3), 3): # Loops through a random range of 3 numbers
         for r in random.sample(range(3), 3): # Loops through another random range of 3 numbers, effectively multiplying by 3 and creating a whole row with 9 shuffled elements
             rows.append(r * 3 + row)
-    
     #Parent Column
     for col in random.sample(range(3), 3): # Columns use the same method as the rows
         for c in random.sample(range(3), 3): # 9 elements in a column, all randomized
