@@ -22,7 +22,7 @@ def validate(x, y):
 #Prints board to the screen
 def printBoard(board):
     #Variables
-    horizontal_line = "- - - - - - - - - - - - "
+    horizontal_line = "- - - - - - - - - - -"
 
     # Preprocess the rows to add the vertical column separations
     for row in board:
