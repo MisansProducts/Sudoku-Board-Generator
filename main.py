@@ -4,6 +4,7 @@
 #======Libraries======
 import random
 import copy
+import save_board   # needs to install opencv with: pip install opencv-python   
 
 #======Functions======
 #Text on startup
@@ -102,13 +103,26 @@ def main():
 
     #Obstructed Board
     printBoard(hidden_board)
+    #Asking for saving board
+    save_inp = input("Would you like to save the hidden board? (y/n):")    
+    #If in answer is y, then save board, else skip
+    if "y" in save_inp:
+        save_board.save_board(hidden_board, "hidden_board")
+    # print(hidden_board)
+
 
     print("\nPress enter to see the full board.")
 
     input()
 
     #Full Board
+
     printBoard(board)
+    #Asking for saving board
+    save_inp = input("Would you like to save the full board? (y/n):")    
+    #If in answer is y, then save board, else skip
+    if "y" in save_inp:
+        save_board.save_board(board, "full_board")
 
 #======Execution Check======
 if __name__ == '__main__':
