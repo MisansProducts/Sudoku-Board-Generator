@@ -1,3 +1,5 @@
+# Made by Michael36500
+
 import cv2
 # from tqdm import tqdm
 
@@ -10,7 +12,6 @@ def save_board(board, name):
     actual_line = -18
     # for line in tqdm(board):
     for line in board:
-        print(line)
         if "-" in str(line):
             pass
         else:
@@ -22,18 +23,3 @@ def save_board(board, name):
                 cv2.putText(img, str(char), (actual_char, actual_line), cv2.FONT_HERSHEY_COMPLEX, 3, (0,0,0))
                 actual_char += gap
     cv2.imwrite("{}.png".format(str(name)), img)
-
-
-# brd =  [[7, ' ', ' ', '|', ' ', ' ', ' ', '|', 4, 3, ' '], 
-#         [4, 3, ' ', '|', ' ', 2, ' ', '|', 6, ' ', ' '], 
-#         [9, 1, 6, '|', ' ', ' ', ' ', '|', 8, ' ', 2], 
-#         ['- - - - - - - - - - -'], 
-#         [' ', 8, 7, '|', ' ', ' ', ' ', '|', 3, ' ', ' '], 
-#         [' ', ' ', ' ', '|', ' ', 8, ' ', '|', 9, ' ', ' '], 
-#         [1, ' ', 9, '|', ' ', 4, 3, '|', ' ', ' ', ' '], 
-#         ['- - - - - - - - - - -'], 
-#         [6, ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', 8, 7], 
-#         [8, ' ', 2, '|', ' ', 1, 6, '|', ' ', 4, 3], 
-#         [' ', 4, ' ', '|', ' ', ' ', ' ', '|', ' ', 6, ' ']]
-# save_board(brd)
-

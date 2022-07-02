@@ -12,6 +12,11 @@ Special thanks to the answer by Alain T in [this post](https://stackoverflow.com
 
 Make sure [Python](https://www.python.org/downloads/ "Download Python from www.python.org") is installed on your device before opening this file.
 
+Required libraries you need to install before using this program:
+* `pip install opencv-python` - To save images.
+
 ## Credits
 
 Alex Akoopie - Creator
+
+Michael36500 - Image saving feature
