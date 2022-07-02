@@ -4,6 +4,7 @@
 #======Libraries======
 import random
 import copy
+import save_board   # needs to install opencv with: pip install opencv-python   
 
 #======Functions======
 #Text on startup
@@ -21,25 +22,25 @@ def validate(x, y):
 
 #Prints board to the screen
 def printBoard(board):
-    # loop for whole board
-    for rownum in range(len(board)):
-        # loop for one row
-        for num in range(len(board[rownum])):
-            # if num == 0: print nothing else print num
-            if board[rownum][num] != 0:
-                print(board[rownum][num], end=" ")
-            else:
-                print(" ", end=" ")
-            # printig vertical lines
-            if num % 3 == 2 and num != 8:
-               print("|", end = " ")
-        print("")   # aka new line
-        # printing horizontal lines
-        if rownum % 3 == 2 and rownum != 8:
-            for _ in range(11):         # here i was too lazy to think about elegant solution, so i made it hardcoded. sry
-                print("- ", end="") # maybe you can consider putting = instead of -
-            print("")
-            
+    #Variables
+    horizontal_line = "- - - - - - - - - - -"
+
+    # Preprocess the rows to add the vertical column separations
+    for row in board:
+        for c in range(len(row)):
+            if row[c] == 0: # if a cell has not been revealed, replace the present 0 with a space
+                row[c] = " "
+        row.insert(3, "|") # add the left vertical column
+        row.insert(7, "|") # add the right vertical column
+
+    # Add the horizontal lines
+    board.insert(3, [horizontal_line]) # add the upper horizontal line
+    board.insert(7, [horizontal_line]) # add the lower horizontal line
+    
+    # Print the board
+    for r in board:
+        print(*r, end = " ") # print the row list, with it's elements separated by spaces
+        print() # spacer
 
 #======Main======
 def main():
@@ -53,8 +54,7 @@ def main():
     while True:
         #Difficulty Input
         try:
-            # difficulty = float(input("Enter a difficulty (1-99): "))
-            difficulty = float(60)
+            difficulty = float(input("Enter a difficulty (1-99): "))
 
             #Bad inputs
             if difficulty < 0:
@@ -81,7 +81,6 @@ def main():
     for row in random.sample(range(3), 3): # Loops through a random range of 3 numbers
         for r in random.sample(range(3), 3): # Loops through another random range of 3 numbers, effectively multiplying by 3 and creating a whole row with 9 shuffled elements
             rows.append(r * 3 + row)
-    
     #Parent Column
     for col in random.sample(range(3), 3): # Columns use the same method as the rows
         for c in random.sample(range(3), 3): # 9 elements in a column, all randomized
@@ -104,13 +103,26 @@ def main():
 
     #Obstructed Board
     printBoard(hidden_board)
-    exit()
+    #Asking for saving board
+    save_inp = input("Would you like to save the hidden board? (y/n):")    
+    #If in answer is y, then save board, else skip
+    if "y" in save_inp:
+        save_board.save_board(hidden_board, "hidden_board")
+    # print(hidden_board)
+
+
     print("\nPress enter to see the full board.")
 
     input()
 
     #Full Board
+
     printBoard(board)
+    #Asking for saving board
+    save_inp = input("Would you like to save the full board? (y/n):")    
+    #If in answer is y, then save board, else skip
+    if "y" in save_inp:
+        save_board.save_board(board, "full_board")
 
 #======Execution Check======
 if __name__ == '__main__':
